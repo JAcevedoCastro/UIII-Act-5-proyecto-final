@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-11-2023 a las 20:03:12
+-- Tiempo de generación: 04-12-2023 a las 18:33:51
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 5.6.32
 
@@ -31,17 +31,24 @@ SET time_zone = "+00:00";
 CREATE TABLE `cliente` (
   `idcliente` int(11) NOT NULL,
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `telefono` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
-  `direccion` varchar(200) COLLATE utf8_spanish_ci NOT NULL
+  `apellidop` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `apellidom` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `telefono` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `direccion` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `edad` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `cliente`
 --
 
-INSERT INTO `cliente` (`idcliente`, `nombre`, `telefono`, `direccion`) VALUES
-(1, 'Jona', '656561232', 'J.Dozal #8325'),
-(2, 'David', '65621321', 'Melon #2212');
+INSERT INTO `cliente` (`idcliente`, `nombre`, `apellidop`, `apellidom`, `telefono`, `direccion`, `email`, `edad`) VALUES
+(21, 'Jonathan', 'Acevedo', 'Castro', '6562387652', 'J.Dozal', 'jona@gmail.com', 18),
+(22, 'David', 'Arellano', 'Gamon', '654456455', 'Melon 1232', 'david@gmail.com', 17),
+(23, 'Jesus', 'De', 'Nazaret', '6561231233', 'Colon 5431', 'Jesus@gmail.com', 42),
+(24, 'Cris', 'Perez', 'Romero', '12343212', 'Oro 1232', 'peres@gmail.com', 22),
+(25, 'Tony', 'soto', 'Valles', '233412322', 'Plata 1232', 'tony@gmail.com', 33);
 
 -- --------------------------------------------------------
 
@@ -113,7 +120,7 @@ CREATE TABLE `detalle_venta` (
 --
 
 INSERT INTO `detalle_venta` (`id`, `id_producto`, `id_venta`, `cantidad`, `descuento`, `precio`, `total`) VALUES
-(1, 1, 1, 4, '0.00', '29990.00', '119960.00');
+(10, 19, 12, 12, '0.00', '20000.00', '240000.00');
 
 -- --------------------------------------------------------
 
@@ -132,9 +139,12 @@ CREATE TABLE `laboratorios` (
 --
 
 INSERT INTO `laboratorios` (`id`, `laboratorio`, `direccion`) VALUES
-(1, 'AppleWatch', 'Av de la Raza 6801, Mascareñas, 32500 Juárez, Chih'),
-(2, 'MacStore', 'Blvd. Teófilo Borunda 8681, Bosques del Sol, 32610'),
-(3, 'AppleZone', 'Blvd. Óscar Flores 5980, Colinas de Juárez Fraccio');
+(6, '8GB RAM', 'GB'),
+(7, '12GB RAM', 'GB'),
+(8, '16GB RAM', 'GIGABYTE'),
+(9, '32GB RAM ', 'GIGABYTE'),
+(10, '4GB RAM', 'GIGABYTE'),
+(11, '2GB RAM ', 'GIGABYTE');
 
 -- --------------------------------------------------------
 
@@ -179,8 +189,12 @@ CREATE TABLE `presentacion` (
 --
 
 INSERT INTO `presentacion` (`id`, `nombre`, `nombre_corto`) VALUES
-(1, 'Gramos', 'Gr'),
-(2, 'Kilogramos', 'Kg');
+(5, '32GB', 'GIGABYTE'),
+(6, '64GB', 'GIGABYTE'),
+(7, '128GB', 'GIGABYTE'),
+(8, '256GB', 'GIGABYTE'),
+(9, '1T', 'TERABYTE'),
+(10, '556GB', 'GIGABYTE');
 
 -- --------------------------------------------------------
 
@@ -205,9 +219,12 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`codproducto`, `codigo`, `descripcion`, `precio`, `existencia`, `id_lab`, `id_presentacion`, `id_tipo`, `vencimiento`) VALUES
-(1, '1234455', 'IPHONE 15 Pro Max', '29990.00', 96, 1, 1, 1, ''),
-(2, '1233344', 'IPHONE 14 ', '16000.00', 100, 2, 1, 1, ''),
-(3, '888999', 'Air pods 2gen', '3300.00', 100, 2, 1, 5, '');
+(15, '1234455', 'IPHONE 10', '7000.00', 10, 6, 6, 10, 'APPLE'),
+(16, '1234555', 'IPHONE 11', '15000.00', 88, 6, 5, 8, 'APPLE'),
+(17, '1234554', 'IPHONE 12', '10000.00', 82, 7, 6, 9, 'APPLE'),
+(18, '1235545', 'IPHONE 13', '15050.00', 88, 6, 5, 10, 'APPLE'),
+(19, '1236677', 'IPHONE 14', '20000.00', 70, 8, 8, 9, 'APPLE'),
+(20, '1237766', 'IPHONE 29', '400000.00', 1000, 6, 6, 10, 'APPLE');
 
 -- --------------------------------------------------------
 
@@ -225,11 +242,11 @@ CREATE TABLE `tipos` (
 --
 
 INSERT INTO `tipos` (`id`, `tipo`) VALUES
-(1, 'Celular'),
-(2, 'Ipad'),
-(3, 'MacBook'),
-(4, 'SmartWatch'),
-(5, 'AirPods');
+(6, 'Azul'),
+(7, 'Rojo'),
+(8, 'Verde'),
+(9, 'Negro'),
+(10, 'Morado');
 
 -- --------------------------------------------------------
 
@@ -251,7 +268,11 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`idusuario`, `nombre`, `correo`, `usuario`, `clave`) VALUES
 (1, 'Sistemas Free', 'ana.info1999@gmail.com', 'admin', '21232f297a57a5a743894a0e4a801fc3'),
-(9, 'Maria Sanchez', 'maria@gmail.com', 'maria', '263bce650e68ab4e23f28263760b9fa5');
+(9, 'Maria Sanchez', 'maria@gmail.com', 'maria', '263bce650e68ab4e23f28263760b9fa5'),
+(12, 'Jonathan', 'jona@gmail.com', 'jona', '21232f297a57a5a743894a0e4a801fc3'),
+(13, 'david', 'david@gmail.com', 'david', '21232f297a57a5a743894a0e4a801fc3'),
+(14, 'emma', 'emm@gmail.com', 'emma', '21232f297a57a5a743894a0e4a801fc3'),
+(15, 'leon', 'leo@gmail.com', 'leo', '21232f297a57a5a743894a0e4a801fc3');
 
 -- --------------------------------------------------------
 
@@ -272,7 +293,7 @@ CREATE TABLE `ventas` (
 --
 
 INSERT INTO `ventas` (`id`, `id_cliente`, `total`, `id_usuario`, `fecha`) VALUES
-(1, 1, '119960.00', 1, '2023-11-30 18:59:48');
+(12, 21, '240000.00', 1, '2023-12-04 04:16:59');
 
 --
 -- Índices para tablas volcadas
@@ -366,7 +387,7 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracion`
@@ -384,19 +405,19 @@ ALTER TABLE `detalle_permisos`
 -- AUTO_INCREMENT de la tabla `detalle_temp`
 --
 ALTER TABLE `detalle_temp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `laboratorios`
 --
 ALTER TABLE `laboratorios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `permisos`
@@ -408,31 +429,31 @@ ALTER TABLE `permisos`
 -- AUTO_INCREMENT de la tabla `presentacion`
 --
 ALTER TABLE `presentacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `tipos`
 --
 ALTER TABLE `tipos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas
